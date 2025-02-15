@@ -25,7 +25,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        img {
+        img, video {
             max-width: 100%;
             height: auto;
             margin-top: 20px;
@@ -39,7 +39,7 @@
     <h1>Leitor de Arquivos</h1>
     
     <!-- Input de arquivos -->
-    <input type="file" class="file-input" id="fileInput" accept=".txt, .jpg, .jpeg, .png" onchange="handleFileSelect(event)">
+    <input type="file" class="file-input" id="fileInput" accept=".txt, .jpg, .jpeg, .png, .mp4, .webm" onchange="handleFileSelect(event)">
     
     <div class="content" id="content">
         <!-- O conteúdo lido do arquivo será exibido aqui -->
@@ -64,6 +64,12 @@
                 img.src = URL.createObjectURL(file);
                 contentDiv.innerHTML = ''; // Limpar qualquer conteúdo anterior
                 contentDiv.appendChild(img);
+            } else if (file.type.startsWith('video')) {
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.controls = true;
+                contentDiv.innerHTML = ''; // Limpar qualquer conteúdo anterior
+                contentDiv.appendChild(video);
             } else {
                 contentDiv.innerHTML = 'Tipo de arquivo não suportado.';
             }
