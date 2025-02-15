@@ -31,6 +31,12 @@
             margin-top: 20px;
             border-radius: 8px;
         }
+        .verification {
+            margin: 20px 0;
+        }
+        .verification input {
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -38,8 +44,16 @@
 <div class="container">
     <h1>Leitor de Arquivos</h1>
     
+    <!-- Verificação Anti-bot -->
+    <div class="verification">
+        <label for="captcha">Quanto é 2 + 2? (Responda para continuar)</label><br>
+        <input type="text" id="captcha" placeholder="Digite sua resposta">
+        <button onclick="verifyCaptcha()">Verificar</button>
+        <p id="captchaMessage" style="color: red; display: none;">Resposta incorreta, tente novamente.</p>
+    </div>
+    
     <!-- Input de arquivos -->
-    <input type="file" class="file-input" id="fileInput" accept=".txt, .jpg, .jpeg, .png, .mp4, .webm" onchange="handleFileSelect(event)">
+    <input type="file" class="file-input" id="fileInput" accept=".txt, .jpg, .jpeg, .png, .mp4, .webm" onchange="handleFileSelect(event)" disabled>
     
     <div class="content" id="content">
         <!-- O conteúdo lido do arquivo será exibido aqui -->
@@ -47,6 +61,19 @@
 </div>
 
 <script>
+    function verifyCaptcha() {
+        const captchaInput = document.getElementById('captcha').value;
+        const captchaMessage = document.getElementById('captchaMessage');
+        const fileInput = document.getElementById('fileInput');
+
+        if (captchaInput === "4") { // Verifica se a resposta está correta
+            captchaMessage.style.display = 'none';
+            fileInput.disabled = false; // Habilita o input de arquivos
+        } else {
+            captchaMessage.style.display = 'block'; // Exibe a mensagem de erro
+        }
+    }
+
     function handleFileSelect(event) {
         const file = event.target.files[0];
         const contentDiv = document.getElementById('content');
