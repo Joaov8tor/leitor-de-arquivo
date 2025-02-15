@@ -95,6 +95,8 @@
                 const video = document.createElement('video');
                 video.src = URL.createObjectURL(file);
                 video.controls = true;
+                video.width = 1920; // Definindo a largura para 1080p
+                video.height = 1080; // Definindo a altura para 1080p
                 contentDiv.innerHTML = ''; // Limpar qualquer conteúdo anterior
                 contentDiv.appendChild(video);
             } else {
